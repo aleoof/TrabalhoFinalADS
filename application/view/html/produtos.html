@@ -1,0 +1,36 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Quantidade</th>
+      <th scope="col">Deletar</th>
+      <th scope="col">Alterar</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for p in products %}
+          <tr>  
+            <td>
+              {{p.id}} 
+            </td>
+            <td>
+              {{p.nome}}
+            </td>
+            <td>
+              {{p.descricao}}
+            </td>
+            <td>
+              {{p.quantidade}}
+            </td>
+            <td>
+              <a href="/Produtos/deleteProducts?id={{p.id}}" class="btn btn-primary">Deletar</a>
+            </td>
+            <td>
+              <a href="" class="btn btn-dark"  >Alterar</a>
+            </td>
+          </tr>
+        {% endfor %}
+  </tbody>
+</table>

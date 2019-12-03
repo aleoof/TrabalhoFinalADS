@@ -11,13 +11,19 @@ namespace App\Controller;
 class Produtos extends \Core\Classes\Controller
 {
     public function index(){
-        \Core\Classes\View::show('produtos.php');
-            $this->getProducts();
+        $products= $this->getProducts();
+        
+        //debug($data);
+        \Core\Classes\View::show( 'produtos.html', array('products' => $products) );
+                // if($id){
+                //     $delete = $this->deleteProducts($id);
+                // }
     }
 
     public function getProducts(){
         $products = new \App\Model\Produtos;
-        debug($products->get());
+        return $products->get();
+        
     }
 
     public function insertProducts()
@@ -32,16 +38,19 @@ class Produtos extends \Core\Classes\Controller
     public function updateProducts()
     {
         $products = new \App\Model\Produtos;
-        $products->nome = 'teste2';
-        $products->descricao = 'teste2';
-        $products->quantidade = 'teste2';
-        debug($products->update(3));
+        // $products->nome = 'teste2';
+        // $products->descricao = 'teste2';
+        // $products->quantidade = 'teste2';
+        debug($products->update());
+        header('Location: index');
     }
 
     public function deleteProducts()
     {
+        $id = $_GET["id"];
         $products = new \App\Model\Produtos;
-        debug($products->delete(3));
+        $products->delete($id); 
+        header('Location: index');
     }
 
 }

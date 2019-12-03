@@ -9,24 +9,29 @@ class Produtos extends \Core\Classes\Model
 
     public function setName(String $name)
     {
-        $this->name = ucwords($name);
+        $this->nome = ucwords($name);
     }
     
     public function setDescription(String $description)
     {
-        $this->description = ucwords($description);
+        $this->descricao = ucwords($description);
     }
     
     public function setQuatity(Int $qtd)
     {
-        $this->qtd = ucwords($qtd);
+        $this->quantidade = $qtd;
     }
 
     public function authDb()
     {
         $sql = "SELECT * from " . $this->table ;
         $ret = $this->con->query($sql)->fetch();
-
+        if (empty($ret)) {
+            return false;
+        } else {            
+            \Core\Classes\Security::loginRegister($ret);
+            return true;
+        }
     }
     
 }

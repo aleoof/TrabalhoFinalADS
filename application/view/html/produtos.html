@@ -1,3 +1,6 @@
+
+<a href="/Produtos/form?type=incluir" class="btn btn-success">Cadastrar</a>
+
 <table class="table">
   <thead>
     <tr>
@@ -12,24 +15,12 @@
   <tbody>
         {% for p in products %}
           <tr>  
-            <td>
-              {{p.id}} 
-            </td>
-            <td>
-              {{p.nome}}
-            </td>
-            <td>
-              {{p.descricao}}
-            </td>
-            <td>
-              {{p.quantidade}}
-            </td>
-            <td>
-              <a href="/Produtos/deleteProducts?id={{p.id}}" class="btn btn-primary">Deletar</a>
-            </td>
-            <td>
-              <a href="" class="btn btn-dark"  >Alterar</a>
-            </td>
+            <td>{{p.id}}</td>
+            <td>{{p.nome}}</td>
+            <td>{{p.descricao}}</td>
+            <td>{{p.quantidade}}</td>
+            <td><a href="/Produtos/receivePost?type=deletar&id={{p.id}}" class="btn btn-primary">Deletar</a></td>
+            <td><a href="/Produtos/form?type=alterar&id={{p.id}}" class="btn btn-dark"  >Alterar</a></td>
           </tr>
         {% endfor %}
   </tbody>

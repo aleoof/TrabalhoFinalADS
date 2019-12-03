@@ -1,0 +1,23 @@
+<h3>Modo: {{type}}</h3>
+<form action="/Produtos/receivePost?type={{type}}" method="POST">
+    {% if (type != 'incluir') %}
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" name="id" class="form-control" id="id" readonly value="{{prduct.id}}">
+        </div>
+    {% endif %}
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" class="form-control" id="nome" value="{{prduct.nome}}">
+    </div>
+    <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <input type="text" name="descricao" class="form-control" id="descricao" value="{{prduct.descricao}}">
+    </div>
+    <div class="form-group">
+        <label for="quantidade">Quantidade</label>
+        <input type="number" name="quantidade" class="form-control" id="quantidade" value="{{prduct.quantidade}}">
+    </div>
+    
+    <button type="submit" class="btn btn-success">Enviar</button>
+</form>

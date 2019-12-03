@@ -10,47 +10,57 @@ namespace App\Controller;
 
 class Produtos extends \Core\Classes\Controller
 {
-    public function index(){
-        $products= $this->getProducts();
-        
-        //debug($data);
-        \Core\Classes\View::show( 'produtos.html', array('products' => $products) );
-                // if($id){
-                //     $delete = $this->deleteProducts($id);
-                // }
-    }
-
-    public function getProducts(){
-        $products = new \App\Model\Produtos;
-        return $products->get();
-        
-    }
-
-    public function insertProducts()
+    public function index()
     {
-        $products = new \App\Model\Produtos;
-        $products->nome = 'teste';
-        $products->descricao = 'teste';
-        $products->quantidade = 'teste';
-        debug($products->insert());
+        $this->getProducts();
     }
 
-    public function updateProducts()
+    public function getProducts()
     {
-        $products = new \App\Model\Produtos;
-        // $products->nome = 'teste2';
-        // $products->descricao = 'teste2';
-        // $products->quantidade = 'teste2';
-        debug($products->update());
-        header('Location: index');
+        $p = new \App\Model\Produtos;
+        \Core\Classes\View::show( 'produtos.html', [
+                'products' => $p->get()
+            ]);
     }
 
-    public function deleteProducts()
+    function form()
     {
-        $id = $_GET["id"];
-        $products = new \App\Model\Produtos;
-        $products->delete($id); 
-        header('Location: index');
+        $type = $_GET['type'];
+        $data = [];
+        $data['type'] = $type;
+        switch ($type) {
+            case 'alterar':
+                $id = $_GET['id'];
+                $u = new \App\Model\Produtos;
+                $data['prduct'] = $u->get($id);
+            break;
+        }
+        \Core\Classes\View::show( 'insert-products.html', $data);
+    }
+    public function receivePost(){
+        $type = $_GET['type'];
+        $data = [];
+        switch ($type){
+            case 'incluir':
+                $p = new \App\Model\Produtos;
+                $p->setName($this->post['nome']);
+                $p->setDescription($this->post['descricao']);
+                $p->setQuatity($this->post['quantidade']);
+                $p->insert();
+            break;
+            case 'alterar':
+                $p = new \App\Model\Produtos;
+                $p->setName($this->post['nome']);
+                $p->setDescription($this->post['descricao']);
+                $p->setQuatity($this->post['quantidade']);
+                $p->update($this->post['id']);
+            break;
+            case 'deletar':
+                $p = new \App\Model\Produtos;
+                $p->delete($_GET['id']);
+            break;
+        }
+        $this->index();
     }
 
 }
